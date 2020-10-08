@@ -7,8 +7,8 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 
 const INGREDIENT_PRICES = {
     salad: 0.5,
-    bacon: 0.8,
-    cheese: 1.3,
+    bacon: 1.5,
+    cheese: 1,
     meat: 2.0
 };
 
@@ -29,6 +29,9 @@ class BurgerBuilder extends Component{
     }
     purchaseCancelHandler = () =>{
         this.setState({purchasing: false})
+    }
+    purchaseContinueHandler = () =>{
+        alert('You continue!');
     }
     updatePurchaseState (ingredients){
         const sum = Object.keys(ingredients)
@@ -80,7 +83,12 @@ class BurgerBuilder extends Component{
         return(
             <Aux>
                 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
-                    <OrderSummary ingredients={this.state.ingredients}></OrderSummary>
+                    <OrderSummary 
+                    ingredients={this.state.ingredients}
+                    purchaseCancelled={this.purchaseCancelHandler}
+                    purchaseContinued={this.purchaseContinueHandler}
+                    totalPrice={this.state.totalPrice}
+                    ></OrderSummary>
                 </Modal>
                 <Burger ingredients={this.state.ingredients}></Burger>
                 <BuildControls
